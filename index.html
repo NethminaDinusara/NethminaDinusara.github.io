@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dinusara Wijewardana — Electronic &amp; Telecommunication Engineering</title>
+<meta name="description" content="Electronic &amp; Telecommunication Engineering undergraduate at KDU. Embedded systems, robotics, and wireless communication.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --void:#080B11;
+  --panel:#0D1219;
+  --line:#1C2634;
+  --line-soft:#131A24;
+  --ink:#E6ECF4;
+  --ink-2:#8E9CB1;
+  --ink-3:#5E6B7E;
+  --amber:#FFB03A;
+  --cyan:#5FD0E8;
+
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+
+  --ease:cubic-bezier(.2,.7,.3,1);
+  --pad:clamp(1.25rem,5vw,4.5rem);
+  --max:1180px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--void);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:1rem;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:
+    linear-gradient(var(--line-soft) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:72px 72px;
+  opacity:.55;
+  pointer-events:none;
+  z-index:0;
+}
+
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad);position:relative;z-index:1}
+
+a{color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+/* ===== scroll progress ===== */
+.progress{
+  position:fixed;top:0;left:0;height:2px;width:0%;
+  background:linear-gradient(90deg,var(--amber),var(--cyan));
+  box-shadow:0 0 12px rgba(255,176,58,.6);
+  z-index:100;
+}
+
+/* ===== nav ===== */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(8,11,17,.84);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:62px}
+.mark{font-family:var(--mono);font-size:.82rem;font-weight:500;letter-spacing:.14em;text-decoration:none;display:flex;align-items:center;gap:.6rem}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);flex:none;animation:blip 2.6s ease-in-out infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.35}}
+
+.nav-links{display:flex;align-items:center;gap:1.7rem}
+.nav-links a{font-size:.86rem;color:var(--ink-2);text-decoration:none;position:relative;padding-bottom:2px;transition:color .22s var(--ease)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:100%;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-links a.active{color:var(--ink)}
+.nav-cv{border:1px solid var(--line);padding:.42rem .95rem;color:var(--ink)!important;transition:border-color .22s var(--ease),background .22s var(--ease)}
+.nav-cv::after{display:none}
+.nav-cv:hover{border-color:var(--amber);background:rgba(255,176,58,.07)}
+@media(max-width:700px){ .nav-hide{display:none} }
+
+/* ===== hero ===== */
+.hero{padding-top:clamp(3rem,8vw,5.5rem);padding-bottom:clamp(2.5rem,6vw,4rem)}
+.hero-grid{display:grid;grid-template-columns:1.45fr .55fr;gap:clamp(1.75rem,4vw,3.5rem);align-items:center}
+@media(max-width:860px){ .hero-grid{grid-template-columns:1fr;gap:2rem} }
+
+.hero-role{font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--amber);margin-bottom:1.1rem}
+.hero-name{font-family:var(--display);font-weight:800;font-size:clamp(2.7rem,8.4vw,6.2rem);line-height:.92;letter-spacing:-.035em;margin-bottom:1.5rem}
+.hero-name span{display:block}
+.hero-name .ln2{color:var(--ink-2)}
+.hero-lead{max-width:56ch;font-size:clamp(1rem,1.5vw,1.14rem);color:var(--ink-2);line-height:1.72}
+.hero-lead strong{color:var(--ink);font-weight:500}
+
+/* ===== portrait ===== */
+.portrait{position:relative;width:100%;max-width:320px;justify-self:end}
+@media(max-width:860px){ .portrait{justify-self:start;max-width:230px;order:-1} }
+
+.portrait-frame{position:relative;aspect-ratio:4/5;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,#0C1118,#080B11)}
+.portrait-frame img{width:100%;height:100%;object-fit:cover;position:relative;z-index:2;filter:grayscale(.28) contrast(1.06);transition:filter .5s var(--ease),transform .9s var(--ease)}
+.portrait:hover .portrait-frame img{filter:grayscale(0) contrast(1);transform:scale(1.03)}
+.portrait-frame::after{
+  content:"";position:absolute;left:0;right:0;top:0;height:34%;z-index:3;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(255,176,58,.13) 48%,rgba(255,176,58,.05) 52%,transparent);
+  animation:drift 6.5s linear infinite;
+}
+@keyframes drift{0%{transform:translateY(-120%)}100%{transform:translateY(320%)}}
+
+.tick{position:absolute;width:14px;height:14px;border:1px solid var(--amber);opacity:.75;z-index:4}
+.tick.tl{top:-1px;left:-1px;border-right:none;border-bottom:none}
+.tick.tr{top:-1px;right:-1px;border-left:none;border-bottom:none}
+.tick.bl{bottom:-1px;left:-1px;border-right:none;border-top:none}
+.tick.br{bottom:-1px;right:-1px;border-left:none;border-top:none}
+
+.portrait-cap{font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;color:var(--ink-3);margin-top:.7rem;display:flex;justify-content:space-between;gap:.5rem}
+.portrait-cap b{color:var(--cyan);font-weight:400}
+
+/* ===== scope ===== */
+.scope{margin-top:clamp(2rem,4.5vw,3.2rem);border:1px solid var(--line);background:linear-gradient(180deg,#0A0F16,#080B11);position:relative}
+.scope canvas{display:block;width:100%;height:clamp(150px,22vw,230px)}
+.scope-tag{position:absolute;top:.65rem;left:.85rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--ink-3)}
+.scope-tag b{color:var(--amber);font-weight:500}
+
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));border:1px solid var(--line);border-top:none}
+.spec{padding:1.05rem 1.15rem;border-right:1px solid var(--line)}
+.spec:last-child{border-right:none}
+.spec dt{font-family:var(--mono);font-size:.66rem;letter-spacing:.09em;color:var(--ink-3);margin-bottom:.3rem}
+.spec dd{font-size:.92rem}
+@media(max-width:560px){ .spec{border-right:none;border-bottom:1px solid var(--line)} .spec:last-child{border-bottom:none} }
+
+/* ===== reveal ===== */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* ===== sections ===== */
+.sec{padding-top:clamp(4rem,9vw,7rem)}
+.sec-head{position:relative;overflow:hidden;display:flex;align-items:baseline;justify-content:space-between;gap:1.5rem;border-bottom:1px solid var(--line);padding-bottom:.85rem;margin-bottom:2.4rem}
+.sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,3.4vw,2.3rem);letter-spacing:-.02em;line-height:1.1}
+.sec-count{font-family:var(--mono);font-size:.72rem;color:var(--ink-3);white-space:nowrap}
+.sec-head::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:linear-gradient(90deg,transparent,var(--amber) 45%,var(--cyan) 55%,transparent);transform:translateX(-101%)}
+.sec-head.in::after{animation:sweep 1.3s var(--ease) .15s forwards}
+@keyframes sweep{to{transform:translateX(101%)}}
+
+/* ===== focus ===== */
+.focus{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.focus-item{padding:0 1.6rem;border-left:1px solid var(--line)}
+.focus-item:first-child{padding-left:0;border-left:none}
+.focus-item h3{font-family:var(--display);font-weight:600;font-size:1.08rem;letter-spacing:-.01em;margin-bottom:.7rem}
+.focus-item p{color:var(--ink-2);font-size:.94rem;line-height:1.7}
+@media(max-width:780px){
+  .focus-item{padding:1.5rem 0;border-left:none;border-top:1px solid var(--line)}
+  .focus-item:first-child{padding-top:0;border-top:none}
+}
+
+/* ===== build log ===== */
+.build{border-top:1px solid var(--line)}
+.build-row{position:relative;padding:2.2rem 0 2.4rem;border-bottom:1px solid var(--line);transition:padding-left .4s var(--ease)}
+.build-row::before{content:"";position:absolute;left:0;top:2.2rem;width:2px;height:0;background:var(--amber);transition:height .45s var(--ease)}
+.build-row:hover{padding-left:1.15rem}
+.build-row:hover::before{height:calc(100% - 4.6rem)}
+@media(max-width:700px){ .build-row:hover{padding-left:0} .build-row:hover::before{height:0} }
+
+.build-top{display:flex;align-items:center;flex-wrap:wrap;gap:.9rem;margin-bottom:.9rem}
+.build-row h3{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,2.8vw,1.75rem);letter-spacing:-.02em;line-height:1.15}
+.chip{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;padding:.22rem .6rem;border:1px solid currentColor;white-space:nowrap}
+.chip.live{color:var(--cyan)}
+.chip.done{color:var(--amber)}
+.build-meta{font-family:var(--mono);font-size:.7rem;color:var(--ink-3)}
+.build-body{max-width:66ch;color:var(--ink-2);font-size:.97rem;line-height:1.72}
+.build-body p + p{margin-top:.6rem}
+.stack{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1rem}
+.stack li{list-style:none;font-family:var(--mono);font-size:.7rem;color:var(--ink-3);border:1px solid var(--line);padding:.24rem .6rem}
+
+/* ===== project media ===== */
+.media{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.7rem;margin-top:1.5rem}
+.media figure{margin:0}
+.tile{position:relative;aspect-ratio:3/2;overflow:hidden;cursor:pointer;border:1px solid var(--line);background:#0A0E15;transition:border-color .3s var(--ease),transform .45s var(--ease)}
+.tile:hover{border-color:var(--amber);transform:translateY(-3px)}
+.tile img{width:100%;height:100%;object-fit:cover;position:relative;z-index:2;opacity:0;transition:opacity .8s var(--ease),transform .7s var(--ease)}
+.tile.in img{opacity:1}
+.tile:hover img{transform:scale(1.05)}
+
+.holder{
+  position:absolute;inset:0;z-index:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;
+  background-image:
+    linear-gradient(var(--line-soft) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:26px 26px;
+}
+.holder::before{
+  content:"";width:26px;height:26px;opacity:.5;
+  background:
+    linear-gradient(var(--ink-3),var(--ink-3)) center/1px 100% no-repeat,
+    linear-gradient(90deg,var(--ink-3),var(--ink-3)) center/100% 1px no-repeat;
+}
+.holder span{font-family:var(--mono);font-size:.62rem;letter-spacing:.11em;color:var(--ink-3);text-align:center;padding:0 .8rem;line-height:1.6}
+.holder b{color:var(--amber);font-weight:400;display:block;margin-bottom:.15rem}
+
+.tile::after{
+  content:"";position:absolute;left:0;right:0;top:0;height:35%;z-index:3;pointer-events:none;opacity:0;
+  background:linear-gradient(180deg,transparent,rgba(95,208,232,.16),transparent);
+}
+.tile.in::after{animation:acquire 1.05s var(--ease) forwards}
+@keyframes acquire{0%{opacity:1;transform:translateY(-110%)}85%{opacity:1}100%{opacity:0;transform:translateY(300%)}}
+
+.tile.vid .play{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;background:rgba(8,11,17,.35);transition:background .3s var(--ease)}
+.tile.vid:hover .play{background:rgba(8,11,17,.15)}
+.play-btn{width:52px;height:52px;border:1px solid var(--amber);border-radius:50%;display:grid;place-items:center;background:rgba(8,11,17,.75);animation:pulse 2.8s ease-out infinite}
+.play-btn::before{content:"";width:0;height:0;margin-left:3px;border-left:13px solid var(--amber);border-top:8px solid transparent;border-bottom:8px solid transparent}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,176,58,.35)}70%{box-shadow:0 0 0 16px rgba(255,176,58,0)}100%{box-shadow:0 0 0 0 rgba(255,176,58,0)}}
+.tile.vid iframe,.tile.vid video{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:5}
+.tile-cap{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--ink-3);margin-top:.4rem}
+
+/* ===== lightbox ===== */
+.lb{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:clamp(1rem,5vw,3rem);background:rgba(5,7,11,.94);backdrop-filter:blur(8px)}
+.lb.open{display:flex;animation:fade .3s ease forwards}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.lb img{max-width:100%;max-height:86vh;border:1px solid var(--line);object-fit:contain}
+.lb-close{position:absolute;top:1.1rem;right:1.2rem;background:none;border:1px solid var(--line);color:var(--ink);font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;padding:.5rem .9rem;cursor:pointer;transition:border-color .25s var(--ease)}
+.lb-close:hover{border-color:var(--amber)}
+
+/* ===== next up ===== */
+.next{margin-top:2.6rem;padding:1.6rem 1.7rem;border:1px solid var(--line);background:var(--panel)}
+.next h3{font-family:var(--display);font-weight:600;font-size:1.02rem;margin-bottom:.55rem}
+.next p{color:var(--ink-2);font-size:.94rem;max-width:64ch}
+
+/* ===== spec sheet ===== */
+.sheet{border-top:1px solid var(--line)}
+.sheet-row{display:grid;grid-template-columns:210px 1fr;gap:1.5rem;padding:1.35rem 0;border-bottom:1px solid var(--line);align-items:start}
+.sheet-row dt{font-family:var(--mono);font-size:.76rem;letter-spacing:.05em;color:var(--amber);padding-top:.2rem}
+.sheet-row dd{display:flex;flex-wrap:wrap;gap:.5rem}
+.sheet-row dd span{font-size:.9rem;color:var(--ink-2);border:1px solid var(--line);padding:.3rem .7rem;transition:border-color .25s var(--ease),color .25s var(--ease)}
+.sheet-row dd span:hover{border-color:var(--amber);color:var(--ink)}
+@media(max-width:680px){ .sheet-row{grid-template-columns:1fr;gap:.85rem} }
+
+/* ===== entries ===== */
+.list{border-top:1px solid var(--line)}
+.entry{display:grid;grid-template-columns:1fr auto;gap:.4rem 1.5rem;padding:1.6rem 0;border-bottom:1px solid var(--line);align-items:start}
+.entry h3{font-family:var(--display);font-weight:600;font-size:1.06rem;letter-spacing:-.01em}
+.entry .org{color:var(--ink-2);font-size:.92rem;margin-top:.18rem}
+.entry .note{color:var(--ink-3);font-size:.88rem;margin-top:.5rem;max-width:62ch;grid-column:1/-1}
+.entry .when{font-family:var(--mono);font-size:.72rem;color:var(--ink-3);white-space:nowrap;text-align:right;padding-top:.28rem}
+@media(max-width:600px){ .entry{grid-template-columns:1fr} .entry .when{text-align:left;padding-top:.35rem} }
+.grades{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem;grid-column:1/-1}
+.grades span{font-family:var(--mono);font-size:.72rem;color:var(--ink-2);border:1px solid var(--line);padding:.28rem .65rem}
+
+/* ===== contact ===== */
+.contact{padding-top:clamp(4.5rem,9vw,7rem);padding-bottom:clamp(3rem,6vw,5rem)}
+.contact h2{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,5.6vw,3.6rem);letter-spacing:-.03em;line-height:1.08;max-width:18ch;margin-bottom:1.1rem}
+.contact p{color:var(--ink-2);max-width:54ch;margin-bottom:2.4rem}
+.channels{border-top:1px solid var(--line)}
+.ch{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:1.25rem 0;border-bottom:1px solid var(--line);text-decoration:none;transition:padding-left .28s var(--ease)}
+.ch:hover{padding-left:.8rem}
+.ch:hover .ch-val{color:var(--amber)}
+.ch-key{font-family:var(--mono);font-size:.72rem;letter-spacing:.09em;color:var(--ink-3)}
+.ch-val{font-size:clamp(.98rem,2.4vw,1.3rem);transition:color .25s var(--ease);word-break:break-word}
+
+footer{border-top:1px solid var(--line);padding:1.7rem 0;font-family:var(--mono);font-size:.7rem;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  .tile img{opacity:1}
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="mark" href="#top"><span class="dot"></span>DINUSARA W.</a>
+    <div class="nav-links">
+      <a class="nav-hide" href="#work">Work</a>
+      <a class="nav-hide" href="#skills">Skills</a>
+      <a class="nav-hide" href="#education">Education</a>
+      <!-- ⚠ REPLACE: upload your CV to the repo as CV.pdf -->
+      <a class="nav-cv" href="CV.pdf">Résumé</a>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap hero" id="top">
+  <div class="hero-grid">
+
+    <div class="hero-text">
+      <p class="hero-role rv">Electronic &amp; Telecommunication Engineering</p>
+      <h1 class="hero-name rv">
+        <span>Dinusara</span>
+        <span class="ln2">Wijewardana</span>
+      </h1>
+      <p class="hero-lead rv">
+        I build machines that sense, decide, and move. Most of my work so far has been
+        <strong>embedded systems on Arduino and ESP32</strong> — line followers, a pet robot, a
+        multi-task robotic vehicle — paired with the telecommunication side of the same problem:
+        how those machines talk to each other, and how a signal survives the trip.
+      </p>
+    </div>
+
+    <!-- ══════════ YOUR PHOTO GOES HERE ══════════
+         Upload your portrait to:  images/profile.jpg
+         Best size: 800 x 1000 px (4:5 portrait), under 300 KB.
+         Until the file exists, the test-card placeholder shows instead. -->
+    <figure class="portrait rv">
+      <div class="portrait-frame">
+        <span class="tick tl"></span><span class="tick tr"></span>
+        <span class="tick bl"></span><span class="tick br"></span>
+        <div class="holder"><span><b>PORTRAIT</b>images/profile.jpg</span></div>
+        <img src="images/profile.jpg" alt="Dinusara Wijewardana" onerror="this.style.display='none'">
+      </div>
+      <figcaption class="portrait-cap">
+        <span>KDU · Intake 42</span><span><b>&#9679;</b> available</span>
+      </figcaption>
+    </figure>
+
+  </div>
+
+  <div class="scope rv">
+    <span class="scope-tag"><b>CH1</b> amplitude-modulated carrier</span>
+    <canvas id="signal" aria-hidden="true"></canvas>
+  </div>
+
+  <dl class="specs rv">
+    <div class="spec"><dt>Program</dt><dd>BSc (Hons) Electronic &amp; Telecom</dd></div>
+    <div class="spec"><dt>University</dt><dd>KDU — Intake 42</dd></div>
+    <div class="spec"><dt>Certification</dt><dd>CCNA, in progress</dd></div>
+    <div class="spec"><dt>Based in</dt><dd>Colombo, Sri Lanka</dd></div>
+  </dl>
+</header>
+
+<main>
+
+<!-- ============ FOCUS ============ -->
+<section class="wrap sec" id="focus">
+  <div class="sec-head"><h2>Where I spend my time</h2><span class="sec-count">three tracks</span></div>
+  <div class="focus">
+    <div class="focus-item rv">
+      <h3>Embedded systems &amp; robotics</h3>
+      <p>Sensor integration, motor control, and the control logic in between. I work in
+      Embedded C on ESP32 and Arduino Uno, across GPIO, PWM, UART, I²C and SPI, and I like
+      owning a build from the first breadboard through to a tested, working machine.</p>
+    </div>
+    <div class="focus-item rv">
+      <h3>Telecommunication &amp; signals</h3>
+      <p>Digital communication, signal processing, communication networks and wireless
+      fundamentals — the coursework that explains why a link works, and why it drops.
+      Currently working through the Cisco CCNA track alongside it.</p>
+    </div>
+    <div class="focus-item rv">
+      <h3>Running technical teams</h3>
+      <p>Programs, design teams and campus events for IEEE ComSoc, IET and the ERIC Student
+      Society. Scheduling, volunteers, logistics, and getting a room of engineers to the same
+      deadline — a different kind of systems problem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUILD LOG ============ -->
+<section class="wrap sec" id="work">
+  <div class="sec-head"><h2>Build log</h2><span class="sec-count">three builds</span></div>
+
+  <div class="build">
+
+    <!-- ─────────── PROJECT 1 ─────────── -->
+    <article class="build-row rv">
+      <div class="build-top">
+        <h3>Multi-Task Robotic Vehicle</h3>
+        <span class="chip live">IN PROGRESS</span>
+      </div>
+      <div class="build-body">
+        <p>A modular robotic vehicle on ESP32 that pulls several sensors and motor drivers
+        into one system instead of one board per job. The interesting part is the software:
+        I'm structuring the firmware so a new sensor or behaviour can be added without
+        rewriting the control loop.</p>
+        <p>Ongoing work is debugging and performance tuning — timing, sensor noise, and
+        keeping the loop responsive as modules stack up.</p>
+      </div>
+
+      <!-- ⚠ MEDIA: drop files into images/ using these names, or edit the src -->
+      <div class="media">
+        <figure>
+          <div class="tile" data-full="images/vehicle-1.jpg" tabindex="0">
+            <div class="holder"><span><b>PHOTO 01</b>images/vehicle-1.jpg</span></div>
+            <img src="images/vehicle-1.jpg" alt="Multi-task robotic vehicle build" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <figcaption class="tile-cap">Chassis and driver stack</figcaption>
+        </figure>
+        <figure>
+          <div class="tile" data-full="images/vehicle-2.jpg" tabindex="0">
+            <div class="holder"><span><b>PHOTO 02</b>images/vehicle-2.jpg</span></div>
+            <img src="images/vehicle-2.jpg" alt="Sensor wiring detail" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <figcaption class="tile-cap">Sensor wiring detail</figcaption>
+        </figure>
+        <!-- ⚠ VIDEO: replace REPLACE_ID_1 with your YouTube video ID -->
+        <figure>
+          <div class="tile vid" data-yt="REPLACE_ID_1" tabindex="0">
+            <div class="holder"><span><b>VIDEO</b>add YouTube ID</span></div>
+            <img src="images/vehicle-video-thumb.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            <div class="play"><span class="play-btn"></span></div>
+          </div>
+          <figcaption class="tile-cap">Test run</figcaption>
+        </figure>
+      </div>
+
+      <ul class="stack"><li>ESP32</li><li>Embedded C</li><li>Arduino IDE</li><li>Motor drivers</li><li>Multi-sensor</li></ul>
+    </article>
+
+    <!-- ─────────── PROJECT 2 ─────────── -->
+    <article class="build-row rv">
+      <div class="build-top">
+        <h3>Pet Robot</h3>
+        <span class="chip done">COMPLETE</span>
+        <span class="build-meta">Individual Design Project — Semester 4</span>
+      </div>
+      <div class="build-body">
+        <p>Designed and built a pet robot as my Individual Design Project at KDU — mechanical
+        design, electronics and behaviour, end to end. This is the work I care most about:
+        robots that read their surroundings and respond in a way a person can actually read
+        back, rather than just execute a path.</p>
+        <p>It's also what pointed me toward humanoid robotics as the direction I want to take
+        further.</p>
+      </div>
+
+      <div class="media">
+        <figure>
+          <div class="tile" data-full="images/pet-robot-1.jpg" tabindex="0">
+            <div class="holder"><span><b>PHOTO 01</b>images/pet-robot-1.jpg</span></div>
+            <img src="images/pet-robot-1.jpg" alt="Pet robot, finished build" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <figcaption class="tile-cap">Finished build</figcaption>
+        </figure>
+        <figure>
+          <div class="tile" data-full="images/pet-robot-2.jpg" tabindex="0">
+            <div class="holder"><span><b>PHOTO 02</b>images/pet-robot-2.jpg</span></div>
+            <img src="images/pet-robot-2.jpg" alt="Pet robot internals" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <figcaption class="tile-cap">Internals and wiring</figcaption>
+        </figure>
+        <!-- ⚠ VIDEO: replace REPLACE_ID_2 with your YouTube video ID -->
+        <figure>
+          <div class="tile vid" data-yt="REPLACE_ID_2" tabindex="0">
+            <div class="holder"><span><b>VIDEO</b>add YouTube ID</span></div>
+            <img src="images/pet-robot-video-thumb.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            <div class="play"><span class="play-btn"></span></div>
+          </div>
+          <figcaption class="tile-cap">Behaviour demo</figcaption>
+        </figure>
+      </div>
+
+      <ul class="stack"><li>Arduino</li><li>Embedded C</li><li>Sensor integration</li><li>SolidWorks</li></ul>
+    </article>
+
+    <!-- ─────────── PROJECT 3 ─────────── -->
+    <article class="build-row rv">
+      <div class="build-top">
+        <h3>Autonomous Line-Following Robot</h3>
+        <span class="chip done">COMPLETE</span>
+      </div>
+      <div class="build-body">
+        <p>An autonomous line follower on Arduino using IR sensors for path detection, with
+        motor-control logic I wrote rather than lifted, tuned for accurate cornering at speed.</p>
+        <p>I owned the whole build cycle — hardware integration, debugging, testing and
+        optimization — which is where I learned how much of robotics is measurement, not code.</p>
+      </div>
+
+      <div class="media">
+        <figure>
+          <div class="tile" data-full="images/line-follower-1.jpg" tabindex="0">
+            <div class="holder"><span><b>PHOTO 01</b>images/line-follower-1.jpg</span></div>
+            <img src="images/line-follower-1.jpg" alt="Line-following robot" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <figcaption class="tile-cap">IR array and chassis</figcaption>
+        </figure>
+        <figure>
+          <div class="tile" data-full="images/line-follower-2.jpg" tabindex="0">
+            <div class="holder"><span><b>PHOTO 02</b>images/line-follower-2.jpg</span></div>
+            <img src="images/line-follower-2.jpg" alt="Track testing" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <figcaption class="tile-cap">Track testing</figcaption>
+        </figure>
+        <!-- ⚠ VIDEO: replace REPLACE_ID_3 with your YouTube video ID -->
+        <figure>
+          <div class="tile vid" data-yt="REPLACE_ID_3" tabindex="0">
+            <div class="holder"><span><b>VIDEO</b>add YouTube ID</span></div>
+            <img src="images/line-follower-video-thumb.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+            <div class="play"><span class="play-btn"></span></div>
+          </div>
+          <figcaption class="tile-cap">Lap run</figcaption>
+        </figure>
+      </div>
+
+      <ul class="stack"><li>Arduino</li><li>Embedded C</li><li>IR sensors</li><li>DC motors</li></ul>
+    </article>
+
+  </div>
+
+  <div class="next rv">
+    <h3>Next up</h3>
+    <p>Humanoid robotics, 5G and wireless systems, IoT, and automation — plus finishing CCNA.
+    I'm looking for a telecommunication or embedded systems internship where I can put the
+    robotics side and the communication side in the same project.</p>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="wrap sec" id="skills">
+  <div class="sec-head"><h2>Technical spec</h2><span class="sec-count">five groups</span></div>
+  <dl class="sheet">
+    <div class="sheet-row rv"><dt>Programming</dt>
+      <dd><span>C</span><span>C++</span><span>Embedded C</span><span>Arduino</span><span>Python (basic)</span></dd></div>
+    <div class="sheet-row rv"><dt>Embedded</dt>
+      <dd><span>ESP32</span><span>Arduino Uno</span><span>GPIO</span><span>PWM</span><span>UART</span><span>I²C</span><span>SPI</span><span>Sensor integration</span></dd></div>
+    <div class="sheet-row rv"><dt>Telecom &amp; electronics</dt>
+      <dd><span>Digital communication</span><span>Signal processing</span><span>Communication networks</span><span>Wireless fundamentals</span><span>Circuit analysis</span></dd></div>
+    <div class="sheet-row rv"><dt>Software</dt>
+      <dd><span>Arduino IDE</span><span>MATLAB</span><span>Proteus</span><span>SolidWorks</span><span>MS Office</span></dd></div>
+    <div class="sheet-row rv"><dt>Languages</dt>
+      <dd><span>Sinhala — native</span><span>English — professional</span></dd></div>
+  </dl>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section class="wrap sec" id="education">
+  <div class="sec-head"><h2>Education</h2><span class="sec-count">two institutions</span></div>
+  <div class="list">
+    <article class="entry rv">
+      <div><h3>BSc (Hons) in Electronic &amp; Telecommunication Engineering</h3>
+        <p class="org">General Sir John Kotelawala Defence University (KDU)</p></div>
+      <span class="when">Intake 42 — in progress</span>
+      <p class="note">Core coursework in digital communication, signal processing,
+      communication networks, wireless fundamentals and circuit analysis, with design projects
+      each semester.</p>
+    </article>
+    <article class="entry rv">
+      <div><h3>Defence Services College, Colombo 2</h3>
+        <p class="org">GCE Advanced Level — Physical Science stream</p></div>
+      <span class="when">Secondary education</span>
+      <div class="grades">
+        <span>A/L Physics — A</span><span>Combined Maths — B</span>
+        <span>Chemistry — B</span><span>O/L — 8A, 1B</span>
+      </div>
+    </article>
+    <article class="entry rv">
+      <div><h3>Cisco Certified Network Associate (CCNA)</h3>
+        <p class="org">Cisco Networking Academy</p></div>
+      <span class="when">In progress</span>
+    </article>
+  </div>
+</section>
+
+<!-- ============ LEADERSHIP ============ -->
+<section class="wrap sec" id="leadership">
+  <div class="sec-head"><h2>Leadership &amp; involvement</h2><span class="sec-count">four roles</span></div>
+  <div class="list">
+    <article class="entry rv">
+      <div><h3>Head, Program Team</h3><p class="org">IEEE Communications Society (ComSoc)</p></div>
+      <span class="when">KDU Student Branch</span>
+      <p class="note">Led planning and execution of technical programs and student events,
+      coordinating volunteers and logistics across organizing committees.</p>
+    </article>
+    <article class="entry rv">
+      <div><h3>Supervisor, Design Team</h3><p class="org">Institute of Engineering &amp; Technology (IET)</p></div>
+      <span class="when">KDU Student Branch</span>
+      <p class="note">Supervised student design activities and coordinated design teams for
+      technical events, workshops and seminars.</p>
+    </article>
+    <article class="entry rv">
+      <div><h3>Project Co-Chair</h3><p class="org">ERIC Student Society</p></div>
+      <span class="when">KDU</span>
+      <p class="note">Coordinated student projects and technical activities, managing
+      scheduling and team logistics from planning through execution.</p>
+    </article>
+    <article class="entry rv">
+      <div><h3>Student Representative</h3><p class="org">ET Engineering, Intake 42</p></div>
+      <span class="when">KDU</span>
+      <p class="note">Liaison between academic staff and students for lecture schedules, lab
+      sessions and examination information.</p>
+    </article>
+    <article class="entry rv">
+      <div><h3>Event volunteering</h3>
+        <p class="org">KDU Career Fair 2025 · IGNITE 2026 · VC's &amp; Dean's List Awards 2026</p></div>
+      <span class="when">2025 — 2026</span>
+      <p class="note">Supported coordination, registration, logistics and participant
+      management for several of the university's largest annual events, plus regular
+      volunteering at IEEE ComSoc, IET and ERIC workshops.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="wrap contact" id="contact">
+  <h2 class="rv">Open to a telecom or embedded systems internship.</h2>
+  <p class="rv">If you're building something that senses, moves, or transmits — I'd like to hear
+  about it. The fastest way to reach me is email.</p>
+
+  <div class="channels rv">
+    <!-- ⚠ REPLACE: email — change it on BOTH lines -->
+    <a class="ch" href="mailto:dinusara.wijewardana@example.com">
+      <span class="ch-key">EMAIL</span><span class="ch-val">dinusara.wijewardana@example.com</span></a>
+    <!-- ⚠ REPLACE: LinkedIn — change href AND text -->
+    <a class="ch" href="https://linkedin.com/in/your-linkedin-username" target="_blank" rel="noopener">
+      <span class="ch-key">LINKEDIN</span><span class="ch-val">linkedin.com/in/your-linkedin-username</span></a>
+    <!-- ⚠ REPLACE: phone -->
+    <a class="ch" href="tel:+94770000000">
+      <span class="ch-key">PHONE</span><span class="ch-val">+94 77 000 0000</span></a>
+    <!-- ⚠ REPLACE: GitHub username -->
+    <a class="ch" href="https://github.com/your-github-username" target="_blank" rel="noopener">
+      <span class="ch-key">GITHUB</span><span class="ch-val">github.com/your-github-username</span></a>
+  </div>
+</section>
+
+</main>
+
+<div class="wrap">
+  <footer>
+    <span>Dinusara Wijewardana — Colombo, Sri Lanka</span>
+    <span>Built and hosted on GitHub Pages</span>
+  </footer>
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged project image">
+  <button class="lb-close" id="lbClose">CLOSE &middot; ESC</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- oscilloscope hero ---------- */
+  var canvas = document.getElementById('signal');
+  if(canvas){
+    var ctx = canvas.getContext('2d'), phase = 0;
+    var fit = function(){
+      var r = canvas.getBoundingClientRect();
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.floor(r.width * dpr));
+      canvas.height = Math.max(1, Math.floor(r.height * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    var draw = function(){
+      var r = canvas.getBoundingClientRect(), w = r.width, h = r.height, mid = h/2, i, j, x, y;
+      ctx.clearRect(0,0,w,h);
+      ctx.strokeStyle = '#16202C'; ctx.lineWidth = 1; ctx.beginPath();
+      for(i=1;i<12;i++){ x=(w/12)*i; ctx.moveTo(x,0); ctx.lineTo(x,h); }
+      for(j=1;j<4;j++){ y=(h/4)*j; ctx.moveTo(0,y); ctx.lineTo(w,y); }
+      ctx.stroke();
+      ctx.strokeStyle='#1E2937'; ctx.setLineDash([3,6]);
+      ctx.beginPath(); ctx.moveTo(0,mid); ctx.lineTo(w,mid); ctx.stroke(); ctx.setLineDash([]);
+      var amp = h*0.33;
+      var env = function(px){ return amp*(0.52+0.48*Math.sin((px/w)*Math.PI*3+phase*0.7)); };
+      ctx.strokeStyle='rgba(255,176,58,0.22)'; ctx.lineWidth=1;
+      [1,-1].forEach(function(s){
+        var px, py;
+        ctx.beginPath();
+        for(px=0;px<=w;px+=2){ py=mid-s*env(px); px===0?ctx.moveTo(px,py):ctx.lineTo(px,py); }
+        ctx.stroke();
+      });
+      ctx.strokeStyle='#FFB03A'; ctx.lineWidth=1.9;
+      ctx.shadowColor='rgba(255,176,58,0.55)'; ctx.shadowBlur=12;
+      ctx.beginPath();
+      var cx, cy;
+      for(cx=0;cx<=w;cx++){
+        cy = mid - env(cx)*Math.sin((cx/w)*Math.PI*30 + phase*2.6);
+        cx===0?ctx.moveTo(cx,cy):ctx.lineTo(cx,cy);
+      }
+      ctx.stroke(); ctx.shadowBlur=0;
+    };
+    var loop = function(){ phase += 0.011; draw(); requestAnimationFrame(loop); };
+    fit(); draw();
+    if(!reduce) loop();
+    window.addEventListener('resize', function(){ fit(); draw(); });
+  }
+
+  /* ---------- reveal on scroll, staggered ---------- */
+  var items = document.querySelectorAll('.rv, .sec-head, .tile');
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var el = e.target, host = el.closest('figure') || el;
+        var parent = host.parentElement;
+        var idx = 0;
+        if(parent){
+          var sibs = Array.prototype.slice.call(parent.children);
+          idx = Math.max(0, sibs.indexOf(host));
+        }
+        el.style.transitionDelay = Math.min(idx * 90, 360) + 'ms';
+        el.style.animationDelay = Math.min(idx * 90, 360) + 'ms';
+        el.classList.add('in');
+        io.unobserve(el);
+      });
+    }, {threshold:.14, rootMargin:'0px 0px -8% 0px'});
+    Array.prototype.forEach.call(items, function(el){ io.observe(el); });
+  } else {
+    Array.prototype.forEach.call(items, function(el){ el.classList.add('in'); });
+  }
+
+  /* ---------- scroll progress ---------- */
+  var bar = document.getElementById('progress'), ticking = false;
+  var prog = function(){
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+    ticking = false;
+  };
+  window.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(prog); }
+  }, {passive:true});
+  prog();
+
+  /* ---------- nav active section ---------- */
+  var links = document.querySelectorAll('.nav-links a[href^="#"]'), secs = [];
+  Array.prototype.forEach.call(links, function(a){
+    var t = document.querySelector(a.getAttribute('href'));
+    if(t) secs.push({link:a, el:t});
+  });
+  if('IntersectionObserver' in window && secs.length){
+    var navObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        for(var k=0;k<secs.length;k++){
+          if(secs[k].el === e.target){
+            Array.prototype.forEach.call(links, function(l){ l.classList.remove('active'); });
+            secs[k].link.classList.add('active');
+            break;
+          }
+        }
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    secs.forEach(function(s){ navObs.observe(s.el); });
+  }
+
+  /* ---------- video facade ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll('.tile.vid'), function(t){
+    var play = function(){
+      var id = t.getAttribute('data-yt');
+      if(!id || id.indexOf('REPLACE') === 0) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+      f.title = 'Project video';
+      f.setAttribute('allow','accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+      f.setAttribute('allowfullscreen','');
+      t.appendChild(f);
+      var p = t.querySelector('.play'); if(p) p.parentNode.removeChild(p);
+    };
+    t.addEventListener('click', play);
+    t.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); play(); } });
+  });
+
+  /* ---------- lightbox ---------- */
+  var lb = document.getElementById('lb'),
+      lbImg = document.getElementById('lbImg'),
+      lbClose = document.getElementById('lbClose'),
+      lastFocus = null;
+
+  var openLb = function(t){
+    var img = t.querySelector('img');
+    if(!img || img.style.display === 'none' || !img.complete || !img.naturalWidth) return;
+    lastFocus = t;
+    lbImg.src = t.getAttribute('data-full');
+    lbImg.alt = img.alt || '';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  };
+  var closeLb = function(){
+    lb.classList.remove('open');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+    if(lastFocus) lastFocus.focus();
+  };
+
+  Array.prototype.forEach.call(document.querySelectorAll('.tile[data-full]'), function(t){
+    t.addEventListener('click', function(){ openLb(t); });
+    t.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openLb(t); } });
+  });
+  lbClose.addEventListener('click', closeLb);
+  lb.addEventListener('click', function(e){ if(e.target === lb) closeLb(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && lb.classList.contains('open')) closeLb();
+  });
+})();
+</script>
+
+</body>
+</html>
