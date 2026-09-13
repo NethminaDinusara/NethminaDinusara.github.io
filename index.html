@@ -272,12 +272,12 @@ img{display:block;max-width:100%}
 
 footer{border-top:1px solid var(--line);padding:1.7rem 0;font-family:var(--mono);font-size:.7rem;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
 
-@media(prefers-reduced-motion:reduce){
+/*@media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
   .rv{opacity:1;transform:none}
   .tile img{opacity:1}
-}
+}*/
 </style>
 </head>
 
@@ -644,8 +644,8 @@ footer{border-top:1px solid var(--line);padding:1.7rem 0;font-family:var(--mono)
 
 <script>
 (function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+  //var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var reduce = false;
   /* ---------- oscilloscope hero ---------- */
   var canvas = document.getElementById('signal');
   if(canvas){
